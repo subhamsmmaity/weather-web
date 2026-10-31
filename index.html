@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Weather Pro</title>
+    
+    <!-- PWA Manifest & Theme Color -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f172a">
+    
+    <!-- CSS File -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Phosphor Icons for premium icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Chart.js for Interactive Graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="weather-default">
+    <div class="dynamic-bg" id="dynamic-bg"></div>
+    
+    <div class="app-container">
+        <!-- Header & Search -->
+        <header class="glass-panel">
+            <div class="header-top">
+                <div class="greeting">
+                    <h1 id="greeting-text">Good day</h1>
+                    <p class="time" id="local-time">--:--</p>
+                </div>
+                <div class="controls">
+                    <button class="icon-btn" id="unit-toggle" title="Toggle °C/°F">°C</button>
+                    <button class="icon-btn" id="theme-toggle" title="Toggle Theme"><i class="ph ph-moon"></i></button>
+                </div>
+            </div>
+
+            <div class="search-container">
+              <div class="search-bar">
+    <i class="ph ph-magnifying-glass search-icon" style="cursor:pointer;" title="Search"></i>
+    <input type="text" id="search-input" placeholder="Search city...">
+    <!-- New Mic Button -->
+    <i class="ph ph-microphone" id="voice-btn" style="cursor:pointer; font-size: 1.2rem; color: var(--text-secondary);" title="Voice Search"></i>
+    <button class="icon-btn" id="location-btn" title="Use My Location"><i class="ph ph-navigation-arrow"></i></button>
+</div>
+                <div id="error-message" class="error-msg hidden">City not found. Please try again.</div>
+            </div>
+
+            <div class="saved-locations" id="saved-locations"></div>
+        </header>
+
+        <main id="main-content" class="loading">
+            <!-- Current Weather -->
+            <section class="current-weather glass-panel">
+                <button id="favorite-btn" class="icon-btn favorite-btn"><i class="ph ph-star"></i></button>
+                <div class="current-main">
+                    <div class="current-details">
+                        <h2 id="city-name" class="skeleton-text">City Name</h2>
+                        <p id="weather-desc" class="skeleton-text">Condition</p>
+                        <h1 id="current-temp" class="skeleton-text">--°</h1>
+                        <p class="feels-like skeleton-text" id="feels-like">Feels like --°</p>
+                    </div>
+                    <div class="current-icon-container skeleton-block">
+                        <i id="current-icon" class="ph ph-cloud"></i>
+                    </div>
+                </div>
+                <div class="high-low skeleton-text" id="high-low">H: --° L: --°</div>
+                <p class="last-updated" id="last-updated">Updated: --:--</p>
+            </section>
+
+            <!-- Smart Insight Bar -->
+            <div class="smart-insight glass-panel skeleton-block" id="smart-insight">
+                <i class="ph ph-magic-wand"></i>
+                <span id="insight-text">Analyzing weather patterns...</span>
+            </div>
+
+            <!-- Interactive 24h Chart -->
+            <section class="hourly-forecast glass-panel">
+                <h3>24-Hour Forecast</h3>
+                <div class="chart-container">
+                    <canvas id="hourly-chart"></canvas>
+                </div>
+            </section>
+
+            <!-- Bottom Grid (7-Day & Details) -->
+            <div class="dashboard-grid">
+                <!-- 7-Day Forecast -->
+                <section class="daily-forecast glass-panel">
+                    <h3>7-Day Forecast</h3>
+                    <div class="daily-container" id="daily-container"></div>
+                </section>
+
+                <!-- Weather Details -->
+                <section class="weather-details">
+                    <!-- AQI Card -->
+                    <div class="detail-card glass-panel aqi-card">
+                        <div class="detail-header"><i class="ph ph-leaf"></i> Air Quality</div>
+                        <div class="detail-value skeleton-text" id="aqi-value">--</div>
+                        <div class="detail-sub" id="aqi-desc">Loading...</div>
+                        <div class="aqi-bar-container"><div class="aqi-bar" id="aqi-bar"></div></div>
+                    </div>
+                    <div class="detail-card glass-panel">
+                        <div class="detail-header"><i class="ph ph-sun"></i> UV Index</div>
+                        <div class="detail-value skeleton-text" id="uv-index">--</div>
+                        <div class="detail-sub" id="uv-desc">Low</div>
+                    </div>
+                    <div class="detail-card glass-panel">
+                        <div class="detail-header"><i class="ph ph-wind"></i> Wind</div>
+                        <div class="detail-value skeleton-text" id="wind">-- km/h</div>
+                        <div class="detail-sub" id="wind-dir">Direction</div>
+                    </div>
+                    <div class="detail-card glass-panel">
+                        <div class="detail-header"><i class="ph ph-drop"></i> Humidity</div>
+                        <div class="detail-value skeleton-text" id="humidity">--%</div>
+                    </div>
+                    <div class="detail-card glass-panel">
+                        <div class="detail-header"><i class="ph ph-eye"></i> Visibility</div>
+                        <div class="detail-value skeleton-text" id="visibility">-- km</div>
+                    </div>
+                    <div class="detail-card glass-panel sun-card">
+                        <div class="detail-header"><i class="ph ph-sun-horizon"></i> Sun</div>
+                        <div class="sun-times">
+                            <div><i class="ph ph-arrow-up"></i> <span id="sunrise" class="skeleton-text">--:--</span></div>
+                            <div><i class="ph ph-arrow-down"></i> <span id="sunset" class="skeleton-text">--:--</span></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
